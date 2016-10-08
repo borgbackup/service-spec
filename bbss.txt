@@ -1,0 +1,103 @@
+===================================================
+Borg Backup Service Specification v1.0 (BBSS10-WIP)
+===================================================
+
+This document is about defining how a conforming backup service using
+borgbackup looks like from the outside. It is intended for service
+providers (big or small, private or public, commercial or non-commercial).
+
+Setting up in a standard way has some advantages:
+
+- enables switching service providers rather easily
+- services can be set up in a proven, secure, reviewed way
+- changes / improvements of the setup are done in new spec releases
+- no need to reinvent the wheel
+
+TODO: we already have a deployment example,
+      it should be adapted to conform with this spec.
+
+Public interface
+================
+
+As for a service user only the externally visible properties of the service
+are relevant, we focus on specifying them.
+
+Repository Location
+-------------------
+
+For performance and security reasons, only ssh: repository locations will be
+supported within this specification.
+
+- Repository location: user@host:repoid
+
+  - user: use "borg" for everybody (except if you need something else)
+  - host: your hostname (use dyndns for dynamic IPs). use the standard port 22
+    (other ports are more difficult to set up for the client).
+  - repoid = name of the repo (this is managed by the client and each client /
+    each ssh key has their own namespace)
+
+So, for example, repository locations could look like this:
+
+  - borg@myhost.nsupdate.info:pc1 (key / namespace of John Doe)
+  - borg@myhost.nsupdate.info:pc2 (key / namespace of John Doe)
+  - borg@myhost.nsupdate.info:pc1 (key / namespace of Jane Smith)
+
+
+Authentication and Permissions
+------------------------------
+
+It is strongly recommended that ssh password authentication is disabled for
+better security. You don't want a backup server to get hacked.
+
+For borg, ssh key authentication is required for automation and forced
+commands.
+
+Forced commands usage:
+- disallow shell access, port forwarding, X11 forwarding, ...
+- optional: have different keys for append-only mode and backup admin mode
+- restrict command execution to a specific borg executable
+- restrict borg access to some different base path for each client
+- cd into the client's base path so just the relative repo directory name
+  needs to be given
+
+Single "borg" user setup:
+- Have a single "borg" account shared by all clients.
+- Separation of clients works via a ssh forced command based on the ssh key.
+- Managing the ssh forced commands is the task of the service operator, who
+  has to set them up so that clients are separated as needed.
+
+Multiple, different users setup:
+- One account per client.
+- Per account quotas can be set up and enforced by the OS.
+- Separation of users works via UNIX permissions (or other means).
+- Additionally, ssh forced commands are used.
+- Managing the ssh forced commands can be done by the user, if functionality
+  not wanted by service owner is globally disallowed.
+
+
+Borg executables
+----------------
+
+As borg is developing fast, it is recommended that backup services offer
+multiple executables for best compatibility. All executables must be in the
+system search path and named like this:
+
+- borg (unspecified version, usually some stable release)
+- borg-1.0 (points to latest 1.0.x release)
+- borg-1.0.7 (or whatever latest 1.0.x release is currently)
+- borg-1.1 (points to latest 1.1.x release)
+- borg-1.1.0 (or whatever latest 1.1.x release is currently)
+- borg-1.1.0b2 (for testing beta releases)
+- borg-1.1.0rc1 (for testing release candidates)
+- borg-2.0 (future, incompatible version)
+
+On platforms where binary builds are available, you can easily achieve this
+independently of what your OS / distribution offers by just downloading the
+binaries, naming them like specified and putting them somewhere into $PATH.
+
+You can then invoke a specific borg version via the ssh forced command.
+
+Please note that the user can't just use --remote-path <borg-x.y.z> as the
+ssh forced command overrides this. If a client needs different borg versions
+at the same time, multiple ssh keys with different forced commands can be
+used.

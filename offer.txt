@@ -1,0 +1,40 @@
+=========================
+Borg Backup Service Offer
+=========================
+
+Service offer conforming to spec: BBSS10
+
+[ ] commercial, paid service: _______________________________________
+
+[ ] non-commercial, free, mutual backup service
+    (please respond with YOUR offer, please use this form, too)
+
+Up to _____ GB storage space. Up to _____ / _____ Mbit traffic per day.
+
+[ ] willing to receive / send HDD with repo copy via mail for initial
+    seed and desaster case.
+
+Up to _____ / _____ Mbit/s (down/up) connectivity speed via:
+
+[ ] DSL / VDSL  [ ] Cable  [ ] Ethernet  [ ] Fiber  [ ] _____________
+
+Provider: ___________________________________________________________
+
+[ ] public IPv4  [ ] public IPv6  [ ] static IP  [ ] dyn. IP + dynDNS
+
+OS: [ ] Linux  [ ] *BSD  [ ] OS X  [ ] other: __________________
+
+Borg: versions currently offered: ______________________________
+      updates: every [ ] 1  [ ] 3  [ ] 6  [ ] 12  [ ] 24  [ ] 48 months
+
+HW: Machine: [ ] Server-Class  [ ] Desktop-Class  [ ] other: ________
+    Disks: [ ] Desktop-Class  [ ] 24/7-Class  [ ] Server-Class
+           [ ] RAID with _ disks redundancy
+    CPU: ________________  RAM: ___ GB  [ ] with ECC  [ ] UPS
+    [ ] Virtual Machine / Container (give their resources above)
+
+Location: [ ] Data Center  [ ] Company / Organisation  [ ] Home
+
+Name / contact: ________________________________________________
+
+Country / City: ________________________________________________
