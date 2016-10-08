@@ -1,0 +1,17 @@
+==============================
+Borg Backup Service Login Data
+==============================
+
+Service conforming to spec: BBSS10
+
+I have installed your ssh public key, so you now should be able to
+use the service.
+
+Service URL: borg@myhost.example.org
+
+Repo Location(s): borg@myhost.example.org:chooseyourreponame
+
+Please notify me if there are any issues with the service.
+
+Please try to not use more resources than we agreed about and
+do not abuse the service in any way.
